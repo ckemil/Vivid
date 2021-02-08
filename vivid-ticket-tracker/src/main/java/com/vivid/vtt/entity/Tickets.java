@@ -15,13 +15,15 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 
+import com.vivid.vtt.lookup.Status;
+
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.Setter;
 
 @Entity
 @Data
-public class Tickets {
+public class Tickets extends BaseEntity {
 	
 	@Id
 	@Setter(AccessLevel.NONE)
@@ -35,26 +37,23 @@ public class Tickets {
 	private String serialNo;
 	private String machineType;
 	
-	private String createdDate;
-	private String createdBy;
-	private String updateDate;
-	private String updatedBy;
+
 	private Status status;		//enum
 	private String remarks;
 	
 	//private List<WorkLog> workLog;
 	@ManyToOne
 	@JoinColumn(name = "userId")
-	private Users engineerAssinged;
+	private User engineerAssinged;
 	
 	@ManyToMany(cascade = {CascadeType.DETACH,CascadeType.MERGE, CascadeType.PERSIST,CascadeType.REFRESH},
 			fetch = FetchType.LAZY)
 	@JoinTable(name="ticket_skill",
 		joinColumns=@JoinColumn(name="ticketId"), inverseJoinColumns=@JoinColumn(name="skillId"))
-	private List<Skills> Skills; //multiselect
+	private List<Skills> skills; //multiselect   
 	
-	@OneToMany(mappedBy = "tickets")
+	@OneToMany(mappedBy = "tickets", fetch = FetchType.LAZY, orphanRemoval = true)
 	private List<WorkLog> workLog;
 	
-	
+	// created by and updated by in a new class - base class
 }

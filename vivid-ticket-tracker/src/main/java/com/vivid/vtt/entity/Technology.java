@@ -9,8 +9,11 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 
+import lombok.Data;
+
 @Entity
-public class Technology {
+@Data
+public class Technology extends BaseEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "technology_seq")
 	@SequenceGenerator(name = "technology_seq",sequenceName = "technology_seq", initialValue = 1, allocationSize = 1)
@@ -20,7 +23,5 @@ public class Technology {
 	@OneToMany(mappedBy = "technology")
 	private List<Skills> skills;
 	
-	private String createdDate;
-	private String createdBy;
 
 }

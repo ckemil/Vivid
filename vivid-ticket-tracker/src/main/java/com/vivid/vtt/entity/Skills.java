@@ -14,7 +14,10 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 
+import lombok.Data;
+
 @Entity
+@Data
 public class Skills {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "skills_seq")
@@ -30,7 +33,7 @@ public class Skills {
 			fetch = FetchType.LAZY)
 	@JoinTable(name="user_skill",
 		joinColumns=@JoinColumn(name="skillId"), inverseJoinColumns=@JoinColumn(name="userId"))
-	private List<Users> users;
+	private List<User> user;
 	
 	@ManyToMany(cascade = {CascadeType.DETACH,CascadeType.MERGE, CascadeType.PERSIST,CascadeType.REFRESH},
 			fetch = FetchType.LAZY)
@@ -38,7 +41,5 @@ public class Skills {
 		joinColumns=@JoinColumn(name="skillId"), inverseJoinColumns=@JoinColumn(name="ticketId"))
 	private List<Tickets> tickets;
 	
-	private String createdDate;
-	private String createdBy;
 
 }
