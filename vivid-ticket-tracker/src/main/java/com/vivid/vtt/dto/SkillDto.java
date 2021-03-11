@@ -4,7 +4,7 @@ import java.util.List;
 import lombok.Data;
 
 @Data
-public class SkillsDto {
+public class SkillDto {
 
 	private long skillId;
 	private String skillName;
@@ -13,5 +13,4 @@ public class SkillsDto {
 	
 	private List<UserDto> user;
 	
-	private List<TicketsDto> tickets;
 }

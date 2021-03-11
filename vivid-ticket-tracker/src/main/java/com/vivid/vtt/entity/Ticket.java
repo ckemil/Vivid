@@ -15,6 +15,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import com.vivid.vtt.lookup.Status;
 
 import lombok.AccessLevel;
@@ -23,10 +25,10 @@ import lombok.Setter;
 
 @Entity
 @Data
-public class Tickets extends BaseEntity {
+@Transactional
+public class Ticket extends BaseEntity {
 	
 	@Id
-	@Setter(AccessLevel.NONE)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "tickets_seq")
 	@SequenceGenerator(name = "tickets_seq",sequenceName = "tickets_seq", initialValue = 1001, allocationSize = 1)
 	private long ticketId;
@@ -38,21 +40,21 @@ public class Tickets extends BaseEntity {
 	private String machineType;
 	
 
-	private Status status;		//enum
+	private Status status;		//enum  > why enum.. why cant take from frontend
 	private String remarks;
-	
-	//private List<WorkLog> workLog;
-	@ManyToOne
-	@JoinColumn(name = "userId")
-	private User engineerAssinged;
 	
 	@ManyToMany(cascade = {CascadeType.DETACH,CascadeType.MERGE, CascadeType.PERSIST,CascadeType.REFRESH},
 			fetch = FetchType.LAZY)
-	@JoinTable(name="ticket_skill",
-		joinColumns=@JoinColumn(name="ticketId"), inverseJoinColumns=@JoinColumn(name="skillId"))
-	private List<Skills> skills; //multiselect   
+	@JoinTable(name="ticket_tech",
+		joinColumns=@JoinColumn(name="ticketId"), inverseJoinColumns=@JoinColumn(name="techId"))
+	private List<Technology> tech;
+//	private List<Skill> skills; //multiselect   // ticket need to map with technology? so tech select -> users with skill mapped to that tech will be lised 
 	
-	@OneToMany(mappedBy = "tickets", fetch = FetchType.LAZY, orphanRemoval = true)
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "userId")
+	private User engineerAssinged;
+	
+	@OneToMany(mappedBy = "ticket", fetch = FetchType.LAZY, orphanRemoval = true)
 	private List<WorkLog> workLog;
 	
 	// created by and updated by in a new class - base class

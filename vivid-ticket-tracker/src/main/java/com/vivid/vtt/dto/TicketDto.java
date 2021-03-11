@@ -7,7 +7,7 @@ import com.vivid.vtt.lookup.Status;
 import lombok.Data;
 
 @Data
-public class TicketsDto extends BaseDto {
+public class TicketDto extends BaseDto{
 
 	private long ticketId;
 	private String referenceTitle;
@@ -22,7 +22,7 @@ public class TicketsDto extends BaseDto {
 
 	private UserDto engineerAssinged;
 	
-	private List<SkillsDto> skills; //multiselect   
-	
+//	private List<SkillDto> skills; //multiselect   
+	private List<TechnologyDto> tech;
 	private List<WorkLogDto> workLog;
 }

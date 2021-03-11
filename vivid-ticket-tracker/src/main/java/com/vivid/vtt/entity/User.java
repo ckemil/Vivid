@@ -14,12 +14,15 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 @Entity
 @Data
-public class User {//extends BaseEntity {
+@Transactional
+public class User extends BaseEntity {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "users_seq")
@@ -41,9 +44,9 @@ public class User {//extends BaseEntity {
 			fetch = FetchType.LAZY)
 	@JoinTable(name="user_skill",
 		joinColumns=@JoinColumn(name="userId"), inverseJoinColumns=@JoinColumn(name="skillId"))
-	private List<Skills> skills;
+	private List<Skill> skill;
 	@OneToMany(mappedBy = "engineerAssinged", orphanRemoval = false, fetch = FetchType.LAZY)
-	private List<Tickets> tickets;
+	private List<Ticket> ticket;
 	
 	@OneToMany(mappedBy = "user")
 	private List<WorkLog> workLog;

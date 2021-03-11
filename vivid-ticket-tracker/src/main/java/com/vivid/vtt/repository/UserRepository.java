@@ -7,8 +7,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.vivid.vtt.entity.User;
 
-public interface UserRepository extends JpaRepository<User, String> {
+public interface UserRepository extends JpaRepository<User, Long> {
 	
 //	public Optional<User> findById(long id);
 	public List<User> findAll();
+	
+	public User findByUserId(long id);
+	
+	public void deleteByUserId(long id);
 }

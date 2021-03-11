@@ -5,7 +5,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import com.vivid.vtt.entity.Tickets;
+import com.vivid.vtt.entity.Ticket;
 import com.vivid.vtt.entity.User;
 import com.vivid.vtt.lookup.Status;
 
@@ -19,13 +19,10 @@ private long workLogId;
 	
 	@Enumerated(EnumType.STRING)
 	private Status status;		//enum
-	
-
 	private String action;
-		
 	
 	private String remarks;
 	private boolean reviewStatus; 	//approved or not
-	private TicketsDto tickets;
+	private TicketDto tickets;
 	private UserDto user;
 }

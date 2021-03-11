@@ -18,7 +18,7 @@ import lombok.Data;
 
 @Entity
 @Data
-public class Skills {
+public class Skill {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "skills_seq")
 	@SequenceGenerator(name = "skills_seq",sequenceName = "skills_seq", initialValue = 101, allocationSize = 1)
@@ -35,11 +35,7 @@ public class Skills {
 		joinColumns=@JoinColumn(name="skillId"), inverseJoinColumns=@JoinColumn(name="userId"))
 	private List<User> user;
 	
-	@ManyToMany(cascade = {CascadeType.DETACH,CascadeType.MERGE, CascadeType.PERSIST,CascadeType.REFRESH},
-			fetch = FetchType.LAZY)
-	@JoinTable(name="ticket_skill",
-		joinColumns=@JoinColumn(name="skillId"), inverseJoinColumns=@JoinColumn(name="ticketId"))
-	private List<Tickets> tickets;
+	
 	
 
 }

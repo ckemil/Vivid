@@ -27,12 +27,12 @@ public class WorkLog extends BaseEntity {
 	@Enumerated(EnumType.STRING)
 	private Status status;		//enum
 	private String action;
-		
+	// total working hrs. > start time and end time with working hrs
 	private String remarks;
 	private boolean reviewStatus = false; 	//approved or not
 	@ManyToOne
 	@JoinColumn(name = "ticketId")
-	private Tickets tickets;
+	private Ticket ticket;
 	@ManyToOne
 	@JoinColumn(name = "approver")
 	private User user;
